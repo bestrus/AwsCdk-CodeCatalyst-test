@@ -9,22 +9,35 @@ Triggers:
 
 # Required - Define action configurations.
 Actions:
+  CDKBootstrapAction:
+    Compute:
+      Type: Lambda
+      Fleet: Linux.x86-64.Large
+    Identifier: aws/cdk-bootstrap@v1
+    Configuration:
+      Region: us-west-2
+    Environment:
+      Name: cdk-dev-test-renzo
+      Connections:
+        - Name: "713024823233"
+          Role: codecatalyst-dev-admin-dgs
+    Inputs:
+      Sources:
+        - WorkflowSource
   AWSCDKdeploy-dev:
     # Identifies the action. Do not modify this value.
     Identifier: aws/cdk-deploy@v1.0.12
     # Required; You can use an environment, AWS account connection, and role to access AWS resources.
+    DependsOn:
+      - CDKBootstrapAction
     Environment:
       Connections:
         - Role: codecatalyst-dev-admin-dgs
           Name: "713024823233"
       Name: cdk-dev-test-renzo
-    # Specifies the source and/or artifacts to pass to the action as input.
-    Inputs:
-      # Optional
-      Sources:
-        - WorkflowSource # This specifies that the action requires this Workflow as a source
     Compute:
       Type: Lambda # Defines the action's properties.
+      Fleet: Linux.x86-64.Large
     Configuration:
       StackName: aws-cdk-code-catalyst-test-Renzo
       Region: us-west-2
