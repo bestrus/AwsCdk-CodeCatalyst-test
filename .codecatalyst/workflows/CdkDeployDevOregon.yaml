@@ -26,6 +26,6 @@ Actions:
     Compute:
       Type: Lambda # Defines the action's properties.
     Configuration:
-      StackName: aws-cdk-code-catalyst-dev
+      StackName: aws-cdk-code-catalyst-test-Renzo
       Region: us-west-2
       CfnOutputVariables: '["GoogleSite"]'
